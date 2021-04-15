@@ -1,12 +1,14 @@
 package com.library.personallibrary.service;
 
 import com.library.personallibrary.dao.UserDAO;
+import com.library.personallibrary.exception.UserNotFoundException;
 import com.library.personallibrary.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Component
@@ -28,7 +30,12 @@ public class UserService {
         //return userList;
     }
     public User getUser(int userid){
-        return userDAO.findById(userid).get();
+        Optional<User> optionalUser = userDAO.findById(userid);
+        if(!optionalUser.isPresent())
+        {
+            throw new UserNotFoundException("User record is not available!");
+        }
+        return optionalUser.get();
         //return userList.stream().filter(u -> u.getUserid() == userid).findFirst().get();
     }
     public User updateUserId(int userid, User user){
