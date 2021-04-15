@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Add book - Personal Library</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <h1>Add a book!</h1>
+    </div>
+    <form th:action="@{/adding_book}" th:object="${book}"
+          method="post" style="max-width: 600px; margin: 0 auto;">
+        <div class="m-3">
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Book Name: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{bookName}" class="form-control" required minlength="2" maxlength="20"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Author Name: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{authorName}" class="form-control" required minlength="2" maxlength="40" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Second Author Name (if any): </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{coAuthorName}" class="form-control" required minlength="2" maxlength="40" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Availability: </label>
+                <div class="col-8">
+                    <select th:field="*{availability}">
+                        <option th:value="'owned'" th:text="Owned"></option>
+                        <option th:value="'borrowed'" th:text="Borrowed"></option>
+                        <option th:value="'unavailable'" th:text="Unavailable"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Price: </label>
+                <div class="col-8">
+                    <input type="number" th:field="*{price}" class="form-control"/>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

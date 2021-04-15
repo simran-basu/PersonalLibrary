@@ -1,35 +1,52 @@
 package com.library.personallibrary.api;
-
 import com.library.personallibrary.model.User;
-import com.library.personallibrary.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.List;
+import java.util.Collection;
 
-@RestController
-@RequestMapping(value = "/users")
-public class UserResource {
-    @Autowired
-    private UserService userService;
-    @PostMapping
-    public User addUser(@RequestBody User user){
-        return userService.addUser(user);
+public class UserResource implements UserDetails {
+    private User user;
+
+    public UserResource(User user) { this.user = user; }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
-    @GetMapping
-    public List<User> getUsers(){
-        return userService.getUsers();
+
+    @Override
+    public String getPassword() {
+        return user.getPassword();
     }
-    @GetMapping("/{userid}")
-    public User getUser(@PathVariable("userid") int userid){
-        return userService.getUser(userid);
+
+    @Override
+    public String getUsername() {
+        return user.getEmail();
     }
-    @PutMapping(value = "/userid")
-    public User updateUser(@PathVariable("userid") int userid,@RequestBody User user){
-        return userService.updateUserId(userid,user);
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
-    @DeleteMapping(value = "/{userid}")
-    public void deleteUser(@PathVariable("userid") int userid){
-        userService.deleteUser(userid);
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public String getFullName()
+    {
+        return user.getFirstName()+" "+user.getLastName();
     }
 }
