@@ -1,5 +1,6 @@
 package com.library.personallibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "books")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
     private int bookid;
     @Column(name = "bookName", nullable = false, length = 20)
@@ -25,6 +26,10 @@ public class Book {
     private String availability;
     @Column(nullable = true)
     private Float price;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user", nullable=false)
+    @JsonIgnore
+    private User user;
 
     public int getBookid() { return bookid; }
 
@@ -49,4 +54,8 @@ public class Book {
     public String getCoAuthorName() { return coAuthorName; }
 
     public void setCoAuthorName(String coAuthorName) { this.coAuthorName = coAuthorName; }
+
+    public User getUser() { return user; }
+
+    public void setUser(User user) { this.user = user; }
 }

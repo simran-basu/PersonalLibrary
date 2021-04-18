@@ -47,8 +47,8 @@ public class AppController {
     }
     @GetMapping("/list_books")
     public String viewBooks(Model model){
-        /*List<Book> bookList = bookDAO.findAll();
-        model.addAttribute("bookList", bookList);*/
+        List<Book> bookList = bookDAO.findAll();
+        model.addAttribute("bookList", bookList);
         return "books";
     }
     @GetMapping("/add_book")
