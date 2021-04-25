@@ -39,6 +39,7 @@ public class AppController {
     public String getLists(Model model){
         return "option";
     }
+
     @GetMapping("/list_users")
     public String viewUsersList(Model model){
         List<User> userList = userDAO.findAll();
@@ -46,9 +47,9 @@ public class AppController {
         return "users";
     }
     @GetMapping("/list_books")
-    public String viewBooks(Model model){
-        List<Book> bookList = bookDAO.findAll();
-        model.addAttribute("bookList", bookList);
+    public String viewBookList(Model model){
+        /*List<Book> bookList = bookDAO.findAll();
+        model.addAttribute("bookList", bookList);*/
         return "books";
     }
     @GetMapping("/add_book")
